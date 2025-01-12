@@ -1,10 +1,17 @@
+import { Categories } from "@/components/shared/Categories";
 import { Container } from "@/components/shared/Container";
 import { Title } from "@/components/shared/Title";
 
 export default function Home() {
   return (
-    <Container className="mt-5">
-      <Title text="Все пиццы" size="lg" className="font-extrabold" />
-    </Container>
+    <>
+      {" "}
+      <Container className="mt-5">
+        <Title text="Все пиццы" size="lg" className="font-extrabold" />
+      </Container>
+      <Container>
+        <Categories />
+      </Container>
+    </>
   );
 }
