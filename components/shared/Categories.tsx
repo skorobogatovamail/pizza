@@ -14,8 +14,9 @@ const cats = [
   "Кофе",
   "Напитки",
   "Десерты",
-  "Десерты",
 ];
+
+const activeIndex= 0;
 
 export const Categories: React.FC<Props> = ({ className }) => {
   return (
@@ -30,12 +31,12 @@ export const Categories: React.FC<Props> = ({ className }) => {
       )}
     >
       {" "}
-      {cats.map((name) => {
+      {cats.map((name, id) => {
         return (
           <Link
             href=""
             key={name}
-            className="flex items-center bg-white rounded-2xl font-bold py-3 px-6"
+            className={cn("flex items-center font-bold py-3 px-5 rounded-2xl", activeIndex === id && 'bg-white text-primary shadow-gray-200 shadow-md')}
           >
             {name}
           </Link>
