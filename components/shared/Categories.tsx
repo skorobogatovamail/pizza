@@ -16,7 +16,7 @@ const cats = [
   "Десерты",
 ];
 
-const activeIndex= 0;
+const activeIndex = 0;
 
 export const Categories: React.FC<Props> = ({ className }) => {
   return (
