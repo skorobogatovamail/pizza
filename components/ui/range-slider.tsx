@@ -1,11 +1,11 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as SliderPrimitive from "@radix-ui/react-slider"
+import React from 'react';
+import * as SliderPrimitive from '@radix-ui/react-slider';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-interface SliderProps {
+type SliderProps = {
     className?: string;
     min: number;
     max: number;
@@ -13,40 +13,42 @@ interface SliderProps {
     formatLabel?: (value: number) => string;
     value?: number[] | readonly number[];
     onValueChange?: (values: number[]) => void;
-}
-
-
+};
 
 const RangeSlider = React.forwardRef(
     (
         { className, min, max, step, formatLabel, value, onValueChange, ...props }: SliderProps,
         ref,
     ) => {
-        const itialValue = Array.isArray(value) ? value : [min, max]
-        const [newValue, setNewValue] = React.useState(itialValue)
+        const initialValue = Array.isArray(value) ? value : [min, max];
+        const [localValues, setLocalValues] = React.useState(initialValue);
 
-        const handleValueChange = (nevValues: number[]) => {
-            setNewValue(nevValues)
+        React.useEffect(() => {
+            // Update localValues when the external value prop changes
+            setLocalValues(Array.isArray(value) ? value : [min, max]);
+        }, [min, max, value]);
+
+        const handleValueChange = (newValues: number[]) => {
+            setLocalValues(newValues);
             if (onValueChange) {
-                onValueChange(nevValues)
+                onValueChange(newValues);
             }
-        }
+        };
+
         return (
-            < SliderPrimitive.Root
-                ref={ref}
+            <SliderPrimitive.Root
+                ref={ref as React.RefObject<HTMLDivElement>}
                 min={min}
                 max={max}
                 step={step}
-                value={newValue}
+                value={localValues}
                 onValueChange={handleValueChange}
                 className={cn('relative flex w-full touch-none select-none mb-6 items-center', className)}
-                {...props}
-            >
-                <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20">
+                {...props}>
+                <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-primary/20">
                     <SliderPrimitive.Range className="absolute h-full bg-primary" />
                 </SliderPrimitive.Track>
-                <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
-                {newValue.map((value, index) => (
+                {localValues.map((value, index) => (
                     <React.Fragment key={index}>
                         <div
                             className="absolute text-center"
@@ -59,9 +61,11 @@ const RangeSlider = React.forwardRef(
                         <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full border border-primary/50 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
                     </React.Fragment>
                 ))}
-            </SliderPrimitive.Root >)
-    }
+            </SliderPrimitive.Root>
+        );
+    },
 );
+
 RangeSlider.displayName = SliderPrimitive.Root.displayName;
 
 export { RangeSlider };
