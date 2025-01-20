@@ -47,8 +47,11 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
           );
         })}
       </div>
-      <button className="text-primary mt-3" onClick={() => setCollapsed((prev) => !prev)
-      }>{collapsed ? '+ Раскрыть' : 'Скрыть'}</button>
+      <div className={!collapsed ? 'border-t border-t-neutral-100 mt-4' : ''}>
+        <button className="text-primary mt-3" onClick={() => setCollapsed((prev) => !prev)
+        }>{collapsed ? '+ Раскрыть' : 'Скрыть'}</button>
+      </div>
+
     </div>
 
 
