@@ -20,7 +20,6 @@ interface Props {
     items: Item[];
     title: string;
     categoryId: number;
-
 }
 
 export const ProductList: React.FC<Props> = ({ className, items, title, categoryId }) => {
