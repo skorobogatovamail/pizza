@@ -1,4 +1,7 @@
+'use client';
+
 import { cn } from "@/lib/utils";
+import { useStore } from "@/store/category";
 import Link from "next/link";
 import React from "react";
 
@@ -16,9 +19,9 @@ const cats = [
   "Десерты",
 ];
 
-const activeIndex = 0;
-
 export const Categories: React.FC<Props> = ({ className }) => {
+  const activeId = useStore((state) => state.activeId);
+
   return (
     <div
       className={cn(
@@ -34,9 +37,10 @@ export const Categories: React.FC<Props> = ({ className }) => {
       {cats.map((name, id) => {
         return (
           <Link
-            href=""
+            href={`/#${name}`}
             key={name}
-            className={cn("flex items-center font-bold py-3 px-5 rounded-2xl", activeIndex === id && 'bg-white text-primary shadow-gray-200 shadow-md')}
+            className={cn("flex items-center font-bold py-3 px-5 rounded-2xl",
+              activeId - 1 === id && 'bg-white text-primary shadow-gray-200 shadow-md')}
           >
             {name}
           </Link>

@@ -17,8 +17,10 @@ export default function Home() {
           <div className="w-[250px]">
             <Filters />
           </div>
-          <div>
+          <div className="flex flex-col gap-16">
             <ProductList items={pizzas} title="Пиццы" categoryId={1} />
+            <ProductList items={pizzas} title="Комбо" categoryId={2} />
+            <ProductList items={pizzas} title="Завтрак" categoryId={3} />
           </div>
         </div>
       </Container>
