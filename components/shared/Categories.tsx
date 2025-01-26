@@ -1,5 +1,6 @@
-'use client';
+"use client";
 
+import { categories } from "@/lib/constants/categories";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store/category";
 import Link from "next/link";
@@ -8,16 +9,6 @@ import React from "react";
 interface Props {
   className?: string;
 }
-
-const cats = [
-  "Пиццы",
-  "Комбо",
-  "Закуски",
-  "Коктейли",
-  "Кофе",
-  "Напитки",
-  "Десерты",
-];
 
 export const Categories: React.FC<Props> = ({ className }) => {
   const activeId = useStore((state) => state.activeId);
@@ -34,15 +25,18 @@ export const Categories: React.FC<Props> = ({ className }) => {
       )}
     >
       {" "}
-      {cats.map((name, id) => {
+      {categories.map((el, id) => {
         return (
           <Link
-            href={`/#${name}`}
-            key={name}
-            className={cn("flex items-center font-bold py-3 px-5 rounded-2xl",
-              activeId - 1 === id && 'bg-white text-primary shadow-gray-200 shadow-md')}
+            href={`/#${el.name}`}
+            key={el.name}
+            className={cn(
+              "flex items-center font-bold py-3 px-5 rounded-2xl",
+              activeId - 1 === id &&
+                "bg-white text-primary shadow-gray-200 shadow-md"
+            )}
           >
-            {name}
+            {el.name}
           </Link>
         );
       })}
