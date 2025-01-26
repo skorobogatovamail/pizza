@@ -61,7 +61,7 @@ model ProductItem {
     productId Int?
     price     Int
     size      Int?
-    pizzaType String?
+    pizzaType Int?
     cartItem  CartItem?
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt

@@ -156,28 +156,119 @@ export const products = [
 ];
 
 export const pizzas = [
-  {
-    name: "Гавайская",
-    imageUrl: "/assets/image.svg",
-    categoryId: 1,
-    ingredients: {
-      connect: ingredients.slice(0, 5),
-    },
-  },
-  {
-    name: "Ветчина и сыр",
-    imageUrl: "/assets/image.svg",
-    categoryId: 1,
-    ingredients: {
-      connect: ingredients.slice(5, 7),
-    },
-  },
+  // {
+  //   name: "Гавайская",
+  //   imageUrl: "/assets/image.svg",
+  //   categoryId: 1,
+  //   ingredients: {
+  //     connect: ingredients.slice(0, 5),
+  //   },
+  // },
+  // {
+  //   name: "Ветчина и сыр",
+  //   imageUrl: "/assets/image.svg",
+  //   categoryId: 1,
+  //   ingredients: {
+  //     connect: ingredients.slice(5, 7),
+  //   },
+  // },
   {
     name: "Пепперони",
     imageUrl: "/assets/image.svg",
     categoryId: 1,
-    ingredients: {
-      connect: ingredients.slice(1, 4),
-    },
+    ingredients: ingredients.slice(1, 4),
+  },
+];
+
+export const productItems = [
+  {
+    productId: 1,
+    price: 300,
+    size: 20,
+    pizzaType: 1,
+  },
+  {
+    productId: 1,
+    price: 400,
+    size: 30,
+    pizzaType: 1,
+  },
+  {
+    productId: 1,
+    price: 500,
+    size: 40,
+    pizzaType: 1,
+  },
+  {
+    productId: 1,
+    price: 300,
+    size: 20,
+    pizzaType: 2,
+  },
+  {
+    productId: 1,
+    price: 400,
+    size: 30,
+    pizzaType: 2,
+  },
+  {
+    productId: 1,
+    price: 500,
+    size: 40,
+    pizzaType: 2,
+  },
+  {
+    productId: 2,
+    price: 300,
+    size: 20,
+    pizzaType: 1,
+  },
+  {
+    productId: 2,
+    price: 400,
+    size: 30,
+    pizzaType: 1,
+  },
+  {
+    productId: 2,
+    price: 500,
+    size: 40,
+    pizzaType: 1,
+  },
+  {
+    productId: 2,
+    price: 300,
+    size: 20,
+    pizzaType: 2,
+  },
+  {
+    productId: 2,
+    price: 400,
+    size: 30,
+    pizzaType: 2,
+  },
+  {
+    productId: 2,
+    price: 500,
+    size: 40,
+    pizzaType: 2,
+  },
+  {
+    productId: 3,
+    price: 300,
+    size: 20,
+    pizzaType: 2,
+  },
+  {
+    productId: 3,
+    price: 400,
+    size: 30,
+    pizzaType: 2,
+  },
+  {
+    productId: 3,
+    price: 500,
+    size: 40,
+    pizzaType: 2,
   },
 ];
