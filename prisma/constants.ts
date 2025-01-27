@@ -156,22 +156,20 @@ export const products = [
 ];
 
 export const pizzas = [
-  // {
-  //   name: "Гавайская",
-  //   imageUrl: "/assets/image.svg",
-  //   categoryId: 1,
-  //   ingredients: {
-  //     connect: ingredients.slice(0, 5),
-  //   },
-  // },
-  // {
-  //   name: "Ветчина и сыр",
-  //   imageUrl: "/assets/image.svg",
-  //   categoryId: 1,
-  //   ingredients: {
-  //     connect: ingredients.slice(5, 7),
-  //   },
-  // },
+  {
+    name: "Гавайская",
+    imageUrl: "/assets/image.svg",
+    categoryId: 1,
+    ingredients: {
+      connect: ingredients.slice(0, 5),
+    },
+  },
+  {
+    name: "Ветчина и сыр",
+    imageUrl: "/assets/image.svg",
+    categoryId: 1,
+    ingredients: ingredients.slice(5, 7),
+  },
   {
     name: "Пепперони",
     imageUrl: "/assets/image.svg",

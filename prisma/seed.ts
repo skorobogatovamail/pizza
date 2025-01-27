@@ -7,6 +7,7 @@ import {
   productItems,
   products,
 } from "./constants";
+import { connect } from "http2";
 
 async function up() {
   await prisma.user.createMany({
@@ -32,16 +33,45 @@ async function up() {
     data: categories,
   });
 
-  await prisma.ingredient.createMany({
+  const ingredientTable = await prisma.ingredient.createMany({
     data: ingredients,
   });
 
-  await prisma.product.createMany({
-    data: products,
+  const productTable = await prisma.product.createMany({
+    data: products
+  })
+
+  await prisma.product.create({
+    data: {
+      name: "Гавайская",
+      imageUrl: "/assets/image.svg",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(0, 5),
+      },
+    },
   });
 
-  await prisma.product.createMany({
-    data: pizzas,
+  await prisma.product.create({
+    data: {
+      name: "Ветчина и сыр",
+      imageUrl: "/assets/image.svg",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(5, 7),
+      },
+    },
+  });
+
+  await prisma.product.create({
+    data: {
+      name: "Пепперони",
+      imageUrl: "/assets/image.svg",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(1, 4),
+      },
+    },
   });
 
   // await prisma.productItem.createMany({
