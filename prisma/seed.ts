@@ -7,7 +7,6 @@ import {
   productItems,
   products,
 } from "./constants";
-import { connect } from "http2";
 
 async function up() {
   await prisma.user.createMany({
@@ -71,12 +70,133 @@ async function up() {
       ingredients: {
         connect: ingredients.slice(1, 4),
       },
+      productItems: {
+        create: [
+          {
+            price: 300,
+            size: 20,
+            pizzaType: 1,
+          },
+          {
+            price: 400,
+            size: 30,
+            pizzaType: 1,
+          },
+          {
+            price: 500,
+            size: 40,
+            pizzaType: 1,
+          },
+          {
+            price: 300,
+            size: 20,
+            pizzaType: 2,
+          },
+          {
+            price: 400,
+            size: 30,
+            pizzaType: 2,
+          },
+          {
+            price: 500,
+            size: 40,
+            pizzaType: 2,
+          },
+        ]
+      }
+    }
+  }),
+
+    await prisma.product.create({
+      data: {
+        name: "Гавайская",
+        imageUrl: "/assets/image.svg",
+        categoryId: 1,
+        ingredients: {
+          connect: ingredients.slice(5, 10),
+        },
+        productItems: {
+          create: [
+            {
+              price: 300,
+              size: 20,
+              pizzaType: 1,
+            },
+            {
+              price: 400,
+              size: 30,
+              pizzaType: 1,
+            },
+            {
+              price: 500,
+              size: 40,
+              pizzaType: 1,
+            },
+            {
+              price: 300,
+              size: 20,
+              pizzaType: 2,
+            },
+            {
+              price: 400,
+              size: 30,
+              pizzaType: 2,
+            },
+            {
+              price: 500,
+              size: 40,
+              pizzaType: 2,
+            },
+          ]
+        }
+      },
+    });
+
+  await prisma.product.create({
+    data: {
+      name: "Ветчина и сыр",
+      imageUrl: "/assets/image.svg",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(10, 20),
+      },
+      productItems: {
+        create: [
+          {
+            price: 300,
+            size: 20,
+            pizzaType: 1,
+          },
+          {
+            price: 400,
+            size: 30,
+            pizzaType: 1,
+          },
+          {
+            price: 500,
+            size: 40,
+            pizzaType: 1,
+          },
+          {
+            price: 300,
+            size: 20,
+            pizzaType: 2,
+          },
+          {
+            price: 400,
+            size: 30,
+            pizzaType: 2,
+          },
+          {
+            price: 500,
+            size: 40,
+            pizzaType: 2,
+          },
+        ]
+      }
     },
   });
 
-  // await prisma.productItem.createMany({
-  //   data: productItems,
-  // });
 }
 
 async function down() {
