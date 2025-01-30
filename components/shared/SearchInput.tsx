@@ -30,11 +30,11 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                 />
             </div>
 
-            <div className="">
+            {/* <div className="">
                 <Link>
                     <span></span>
                 </Link>
-            </div>
+            </div> */}
         </>
     )
 }
