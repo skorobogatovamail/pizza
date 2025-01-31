@@ -28,13 +28,10 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                     placeholder="Найди свою пиццу"
                     onFocus={() => setFocused(true)}
                 />
+                <div className="absolute w-full bg-white rounded-2xl top-14 py-2 z-30 shadow-md transition-all duration-200 invisible opacity-0">
+                    123
+                </div>
             </div>
-
-            {/* <div className="">
-                <Link>
-                    <span></span>
-                </Link>
-            </div> */}
         </>
     )
 }
