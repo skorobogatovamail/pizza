@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { useClickAway } from "react-use";
 
@@ -28,8 +29,16 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                     placeholder="Найди свою пиццу"
                     onFocus={() => setFocused(true)}
                 />
-                <div className="absolute w-full bg-white rounded-2xl top-14 py-2 z-30 shadow-md transition-all duration-200 invisible opacity-0">
-                    123
+                <div className={cn("absolute w-full bg-white rounded-2xl top-14 py-2 z-30 shadow-md transition-all duration-200 invisible opacity-0",
+                    focused && "visible opacity-100 top-12"
+                )}>
+                    <Link href='/product/1' className="px-3 py-2 hover:bg-primary/10 cursor-pointer flex items-center gap-2">
+                        <img src='/assets/pizza1.png' className="h-8 w-8"></img>
+                        <div >
+                            Пицца 1
+                        </div>
+                    </Link>
+
                 </div>
             </div>
         </>
