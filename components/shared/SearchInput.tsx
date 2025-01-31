@@ -1,9 +1,10 @@
 'use client';
 
 import { cn } from "@/lib/utils";
+import { Api } from "@/services/api-client";
 import { Search } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useClickAway } from "react-use";
 
 interface Props {
@@ -13,7 +14,11 @@ interface Props {
 export const SearchInput: React.FC<Props> = ({ className }) => {
 
     const [focused, setFocused] = useState(false)
+    const [products, setProducts] = useState([])
+    const [searchQuery, setSearchQuery] = useState('')
     const ref = useRef(null)
+
+    useEffect(() => { Api.products.search(searchQuery) }, [searchQuery])
 
     useClickAway(ref, () => {
         setFocused(false)
@@ -28,12 +33,14 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                     type="text"
                     placeholder="Найди свою пиццу"
                     onFocus={() => setFocused(true)}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <div className={cn("absolute w-full bg-white rounded-2xl top-14 py-2 z-30 shadow-md transition-all duration-200 invisible opacity-0",
                     focused && "visible opacity-100 top-12"
                 )}>
-                    <Link href='/product/1' className="px-3 py-2 hover:bg-primary/10 cursor-pointer flex items-center gap-2">
-                        <img src='/assets/pizza1.png' className="h-8 w-8"></img>
+                    <Link href='/product/1' className="px-3 py-2 hover:bg-primary/10 cursor-pointer flex items-center gap-3">
+                        <img src='/assets/pizza1.png' alt='pizza1' className="h-8 w-8"></img>
                         <div >
                             Пицца 1
                         </div>
