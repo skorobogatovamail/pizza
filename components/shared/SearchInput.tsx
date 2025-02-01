@@ -6,7 +6,7 @@ import { Product } from "@prisma/client";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { useClickAway } from "react-use";
+import { useClickAway, useDebounce } from "react-use";
 
 interface Props {
     className?: string;
@@ -19,11 +19,17 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
     const [searchQuery, setSearchQuery] = useState('')
     const ref = useRef(null)
 
-    useEffect(() => { Api.products.search(searchQuery).then((data) => setProducts(data)) }, [searchQuery])
+    useDebounce(() => { Api.products.search(searchQuery).then((data) => setProducts(data)) }, 250, [searchQuery])
 
     useClickAway(ref, () => {
         setFocused(false)
     })
+
+    const onClickItem = () => {
+        setProducts([])
+        setFocused(false)
+        setSearchQuery('')
+    }
 
     return (
         <>
@@ -37,21 +43,26 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <div className={cn("absolute w-full bg-white rounded-2xl top-14 py-2 z-30 shadow-md transition-all duration-200 invisible opacity-0",
-                    focused && "visible opacity-100 top-12"
-                )}>
 
-                    {products.map(el => {
-                        return (
-                            <React.Fragment key={el.id}>
-                                <Link href={`/product/${el.id}`} className="px-3 py-2 hover:bg-primary/10 cursor-pointer flex items-center gap-3">
-                                    <img src={el.imageUrl} alt={el.name} className="h-8 w-8"></img>
-                                    <div >{el.name}</div>
-                                </Link>
-                            </React.Fragment>
-                        )
-                    })}
-                </div>
+                {products.length > 0 &&
+                    <div className={cn("absolute w-full bg-white rounded-2xl top-14 py-2 z-30 shadow-md transition-all duration-200 invisible opacity-0",
+                        focused && "visible opacity-100 top-12"
+                    )}>
+
+                        {products.map(el => {
+                            return (
+                                <React.Fragment key={el.id}>
+                                    <Link
+                                        href={`/product/${el.id}`}
+                                        className="px-3 py-2 hover:bg-primary/10 cursor-pointer flex items-center gap-3"
+                                        onClick={onClickItem}>
+                                        <img src={el.imageUrl} alt={el.name} className="h-8 w-8"></img>
+                                        <div >{el.name}</div>
+                                    </Link>
+                                </React.Fragment>
+                            )
+                        })}
+                    </div>}
             </div>
         </>
     )
