@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { Title } from "./Title";
 import { FiltersCheckbox } from "./FiltersCheckbox";
 import { Input } from "../ui/input";
+import { Ingredient } from "@prisma/client";
+import { Skeleton } from "../ui/skeleton";
 
 
 interface Item {
@@ -15,8 +17,9 @@ interface Item {
 interface Props {
   className?: string;
   title?: string;
-  items: Item[];
+  items: Ingredient[];
   limit?: number;
+  loading: boolean
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = ({
@@ -24,6 +27,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   title = "Ингредиенты",
   items,
   limit = 6,
+  loading,
 }) => {
   const [collapsed, setCollapsed] = useState(true);
   const [itemsToMap, setitemsToMap] = useState(items?.slice(0, limit));
@@ -34,9 +38,18 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   }
 
   useEffect(
-    () => collapsed ? setitemsToMap(items?.slice(0, limit)) : setitemsToMap(items.filter(el => el.text.toLowerCase().includes(searchValue))),
+    () => collapsed ? setitemsToMap(items?.slice(0, limit)) : setitemsToMap(items.filter(el => el.name.toLowerCase().includes(searchValue))),
     [collapsed, items, limit, searchValue]
   )
+
+  if (loading) {
+    return (
+      <div className="pt-5">
+        <Title text={title} className="font-bold mb-5"></Title>
+        {Array(limit).fill(0).map((_, idx) => <Skeleton key={idx} className="rounded-[8px] h-6 mb-4 bg-gray-50" />)}
+      </div>
+    )
+  }
 
   return (
     <div className="pt-5">
@@ -45,7 +58,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
         <Input type="string" placeholder="Поиск" className="bg-gray-50 border-none" onChange={onChangeSearchValue} ></Input>
       </div>}
       <div className={cn("flex flex-col gap-4 max-h-96 pr-2 overflow-auto srollbar", className)}>
-        {itemsToMap?.map((el) => <FiltersCheckbox key={el.value} text={el.text} value={el.value} />)}
+        {itemsToMap?.map((el) => <FiltersCheckbox key={el.id} text={el.name} value={String(el.id)} />)}
       </div>
       <div className={!collapsed ? 'border-t border-t-neutral-100 mt-4' : ''}>
         <button className="text-primary mt-3" onClick={() => setCollapsed((prev) => !prev)

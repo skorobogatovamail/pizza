@@ -1,23 +1,21 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Title } from "./Title";
 import { FiltersCheckbox } from "./FiltersCheckbox";
 import { Input } from "../ui/input";
 import { RangeSlider } from "../ui/range-slider";
 import { CheckboxFiltersGroup } from "./CheckboxFiltersGroup";
-import { items } from "@/lib/constants/items";
-import { Ingredient } from "@prisma/client";
-import { Api } from "@/services/api-client";
+import { useFiltersIngredients } from "@/hooks/useFiltersIngredients";
 
 interface Props {
   className?: string;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([])
-  useEffect(() => { Api.ingredients.ingredients() }, [])
+
+  const { ingredients, loading } = useFiltersIngredients();
 
   return (
     <div className={cn(className)}>
@@ -49,7 +47,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
       </div>
 
       <div className="mt-5">
-        <CheckboxFiltersGroup title="Ингредиенты" items={items} limit={6} />
+        <CheckboxFiltersGroup title="Ингредиенты" items={ingredients} limit={6} loading={loading} />
       </div>
     </div>
   );
