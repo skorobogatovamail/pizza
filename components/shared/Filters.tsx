@@ -1,17 +1,24 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Title } from "./Title";
 import { FiltersCheckbox } from "./FiltersCheckbox";
 import { Input } from "../ui/input";
 import { RangeSlider } from "../ui/range-slider";
 import { CheckboxFiltersGroup } from "./CheckboxFiltersGroup";
 import { items } from "@/lib/constants/items";
+import { Ingredient } from "@prisma/client";
+import { Api } from "@/services/api-client";
 
 interface Props {
   className?: string;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const [ingredients, setIngredients] = useState<Ingredient[]>([])
+  useEffect(() => { Api.ingredients.ingredients() }, [])
+
   return (
     <div className={cn(className)}>
       <Title text="Фильтрация" className="font-bold mb-5"></Title>
