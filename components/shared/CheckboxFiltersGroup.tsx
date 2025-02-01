@@ -9,17 +9,14 @@ import { Ingredient } from "@prisma/client";
 import { Skeleton } from "../ui/skeleton";
 
 
-interface Item {
-  text: string;
-  value: string;
-}
-
 interface Props {
   className?: string;
   title?: string;
   items: Ingredient[];
   limit?: number;
-  loading: boolean
+  loading: boolean;
+  onClickCheckbox: (id: string) => void;
+  selectedIds: Set<string>
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = ({
@@ -28,6 +25,8 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   items,
   limit = 6,
   loading,
+  onClickCheckbox,
+  selectedIds
 }) => {
   const [collapsed, setCollapsed] = useState(true);
   const [itemsToMap, setitemsToMap] = useState(items?.slice(0, limit));
@@ -58,7 +57,15 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
         <Input type="string" placeholder="Поиск" className="bg-gray-50 border-none" onChange={onChangeSearchValue} ></Input>
       </div>}
       <div className={cn("flex flex-col gap-4 max-h-96 pr-2 overflow-auto srollbar", className)}>
-        {itemsToMap?.map((el) => <FiltersCheckbox key={el.id} text={el.name} value={String(el.id)} />)}
+        {itemsToMap?.map((el) =>
+          <FiltersCheckbox
+            key={el.id}
+            text={el.name}
+            value={String(el.id)}
+            onCheckedChange={() => onClickCheckbox(String(el.id))}
+            checked={selectedIds.has(String(el.id))}
+          />)
+        }
       </div>
       <div className={!collapsed ? 'border-t border-t-neutral-100 mt-4' : ''}>
         <button className="text-primary mt-3" onClick={() => setCollapsed((prev) => !prev)

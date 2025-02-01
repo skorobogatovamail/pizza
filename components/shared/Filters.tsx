@@ -15,7 +15,7 @@ interface Props {
 
 export const Filters: React.FC<Props> = ({ className }) => {
 
-  const { ingredients, loading } = useFiltersIngredients();
+  const { ingredients, loading, onAddId, selectedIds } = useFiltersIngredients();
 
   return (
     <div className={cn(className)}>
@@ -47,7 +47,14 @@ export const Filters: React.FC<Props> = ({ className }) => {
       </div>
 
       <div className="mt-5">
-        <CheckboxFiltersGroup title="Ингредиенты" items={ingredients} limit={6} loading={loading} />
+        <CheckboxFiltersGroup
+          title="Ингредиенты"
+          items={ingredients}
+          limit={6}
+          loading={loading}
+          onClickCheckbox={(id) => { onAddId(id) }}
+          selectedIds={selectedIds}
+        />
       </div>
     </div>
   );
