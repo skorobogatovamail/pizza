@@ -12,7 +12,8 @@ import { Skeleton } from "../ui/skeleton";
 interface Props {
   className?: string;
   title?: string;
-  items: Ingredient[];
+  name?: string;
+  items: Pick<Ingredient, 'name' | 'id'>[];
   limit?: number;
   loading: boolean;
   onClickCheckbox: (id: string) => void;
