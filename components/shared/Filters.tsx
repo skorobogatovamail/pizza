@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState } from "react";
 import { Title } from "./Title";
 import { FiltersCheckbox } from "./FiltersCheckbox";
 import { Input } from "../ui/input";
@@ -12,10 +12,23 @@ import { useFiltersIngredients } from "@/hooks/useFiltersIngredients";
 interface Props {
   className?: string;
 }
+interface PriceProps {
+  priceFrom: number;
+  priceTo: number;
+}
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const { ingredients, loading, onAddId, selectedIds } =
+    useFiltersIngredients();
 
-  const { ingredients, loading, onAddId, selectedIds } = useFiltersIngredients();
+  const [priceRange, setPriceRange] = useState<PriceProps>({
+    priceFrom: 0,
+    priceTo: 1000,
+  });
+
+  const updatePrice = (name: keyof PriceProps, value: number) => {
+    setPriceRange({ ...priceRange, [name]: value });
+  };
 
   return (
     <div className={cn(className)}>
@@ -33,17 +46,27 @@ export const Filters: React.FC<Props> = ({ className }) => {
             type="number"
             placeholder="0"
             min={0}
-            max={30000}
+            max={priceRange.priceFrom}
             defaultValue={0}
+            onChange={(e) => updatePrice("priceFrom", Number(e.target.value))}
           ></Input>
           <Input
             type="number"
-            placeholder="30000"
+            placeholder="1000"
             min={100}
-            max={30000}
+            max={priceRange.priceTo}
+            onChange={(e) => updatePrice("priceTo", Number(e.target.value))}
           ></Input>
         </div>
-        <RangeSlider min={0} max={30000} step={100}></RangeSlider>
+        <RangeSlider
+          min={0}
+          max={1000}
+          step={10}
+          value={[priceRange.priceFrom, priceRange.priceTo]}
+          onValueChange={([priceFrom, priceTo]) =>
+            setPriceRange({ priceFrom: priceFrom, priceTo: priceTo })
+          }
+        ></RangeSlider>
       </div>
 
       <div className="mt-5">
@@ -52,7 +75,9 @@ export const Filters: React.FC<Props> = ({ className }) => {
           items={ingredients}
           limit={6}
           loading={loading}
-          onClickCheckbox={(id) => { onAddId(id) }}
+          onClickCheckbox={(id) => {
+            onAddId(id);
+          }}
           selectedIds={selectedIds}
         />
       </div>
