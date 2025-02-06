@@ -4,8 +4,19 @@ import { ProductList } from "@/components/shared/ProductList";
 import { Title } from "@/components/shared/Title";
 import { TopBar } from "@/components/shared/TopBar";
 import { pizzas } from "@/lib/constants/pizzas";
+import { prisma } from "@/prisma/prisma-client";
 
-export default function Home() {
+export default async function Home() {
+  const categories = await prisma.category.findMany({
+    include: {
+      products: {
+        include: {
+          productItems: true,
+          ingredients: true
+        }
+      }
+    }
+  })
   return (
     <>
       <Container className="mt-5">
