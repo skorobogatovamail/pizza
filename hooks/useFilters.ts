@@ -2,15 +2,9 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useSet } from "react-use";
 
-interface PriceProps {
+export interface PriceProps {
     priceFrom?: number;
     priceTo?: number;
-}
-
-interface QueryFilters {
-    pizzaTypes: string;
-    sizes: string;
-    ingredients: string
 }
 
 export const useFilters = () => {

@@ -15,7 +15,6 @@ interface Props {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
-
   const { ingredients, loading } = useFetchIngredients()
   const filters = useFilters()
   useQueryFilters(filters)
@@ -79,9 +78,10 @@ export const Filters: React.FC<Props> = ({ className }) => {
           max={1000}
           step={10}
           value={[filters.priceRange.priceFrom || 0, filters.priceRange.priceTo || 1000]}
-          onValueChange={([priceFrom, priceTo]) =>
-            filters.setPriceRange({ priceFrom: priceFrom, priceTo: priceTo })
-          }
+          onValueChange={([priceFrom, priceTo]) => {
+            filters.setPriceRange("priceFrom", priceFrom)
+            filters.setPriceRange("priceTo", priceTo)
+          }}
         ></RangeSlider>
       </div>
 
