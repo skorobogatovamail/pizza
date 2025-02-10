@@ -17,7 +17,7 @@ interface Item {
 
 interface Props {
     className?: string;
-    items: Item[];
+    items: any[];
     title: string;
     categoryId: number;
 }

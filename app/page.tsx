@@ -29,9 +29,11 @@ export default async function Home() {
             <Filters />
           </div>
           <div className="flex flex-col gap-16">
-            <ProductList items={pizzas} title="Пиццы" categoryId={1} />
-            <ProductList items={pizzas} title="Комбо" categoryId={2} />
-            <ProductList items={pizzas} title="Завтрак" categoryId={3} />
+            {
+              categories.length > 0 && (
+                categories.map(category => category.products && <ProductList items={category.products} title={category.name} categoryId={category.id} />)
+              )
+            }
           </div>
         </div>
       </Container>
