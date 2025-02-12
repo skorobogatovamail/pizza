@@ -5,6 +5,7 @@ import { useIntersection } from 'react-use';
 import { Title } from "./Title";
 import { ProductCard } from "./ProductCard";
 import { useStore } from "@/store/category";
+import { Product } from "@prisma/client";
 
 interface Item {
     className?: string;
@@ -17,7 +18,7 @@ interface Item {
 
 interface Props {
     className?: string;
-    items: any[];
+    items: Product[];
     title: string;
     categoryId: number;
 }
