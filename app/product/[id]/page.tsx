@@ -23,6 +23,7 @@ export default async function productPage({ params }: { params: { id: string } }
                 <ProductImage imageUrl={product.imageUrl} size={40} className="" />
                 <div className="w-[490px] bg-[#FCFCFC] p-7">
                     <Title text={product.name} size="md" className="font-extrabold mb-1"></Title>
+                    <p className="text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id dignissimos, ut nostrum, dolor eum quos numquam fuga magni, hic aperiam odit! Ea quisquam tenetur, officia velit similique odit delectus tempora.</p>
                 </div>
             </div>
 
