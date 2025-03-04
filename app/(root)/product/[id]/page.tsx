@@ -1,7 +1,7 @@
-import { Container } from "@/components/shared/Container";
-import { GroupVariants } from "@/components/shared/GroupVariants";
-import { ProductImage } from "@/components/shared/ProductImage";
-import { Title } from "@/components/shared/Title";
+import { Container } from "@/shared/components/shared/Container";
+import { GroupVariants } from "@/shared/components/shared/GroupVariants";
+import { PizzaImage } from "@/shared/components/shared/PizzaImage";
+import { Title } from "@/shared/components/shared/Title";
 import { prisma } from "@/prisma/prisma-client";
 import { notFound } from "next/navigation";
 
@@ -16,12 +16,12 @@ export default async function productPage({ params }: { params: { id: string } }
         }
     });
 
-    if (!product) return notFound;
+    if (!product) return notFound();
 
     return (
         <Container className="flex flex-col my-10">
             <div className="flex flex-1">
-                <ProductImage imageUrl={product.imageUrl} size={40} className="" />
+                <PizzaImage imageUrl={product.imageUrl} size={40} className="" />
                 <div className="w-[490px] bg-[#FCFCFC] p-7">
                     <Title text={product.name} size="md" className="font-extrabold mb-1"></Title>
                     <p className="text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id dignissimos, ut nostrum, dolor eum quos numquam fuga magni, hic aperiam odit! Ea quisquam tenetur, officia velit similique odit delectus tempora.</p>
