@@ -32,6 +32,7 @@ export default async function Home() {
               categories.length > 0 && (
                 categories.map(category => (category.products && (
                   <ProductList
+                    key={category.id}
                     items={category.products}
                     title={category.name}
                     categoryId={category.id} />
