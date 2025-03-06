@@ -3,9 +3,11 @@ import React from "react";
 import { Container } from "./Container";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { ArrowRight, ShoppingCart, User } from "lucide-react";
+import { User } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./SearchInput";
+import { CartButton } from "./CartButton";
+import { CartDrawer } from "./CartDrawer";
 
 interface Props {
   className?: string;
@@ -38,25 +40,12 @@ export const Header: React.FC<Props> = ({ className }) => {
         </div>
 
         <div className="flex items-center gap-4">
+
           <Button variant="outline" className="flex items-center gap-1">
             <User height={16} width={16} /> Войти
           </Button>
-          <Button className="group relative">
-            <p>530 ₽</p>
-            <span className="w-[1px] h-full bg-white/30 mx-3"></span>
+          <CartButton />
 
-            <div className="flex gap-1 items-center group-hover:opacity-0 transition duration-300">
-              <ShoppingCart
-                className="relative"
-                height={16}
-                width={16}
-                strokeWidth={2}
-              />
-              <b>3</b>
-            </div>
-
-            <ArrowRight className="w-5 right-5 absolute transition duration-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 "></ArrowRight>
-          </Button>
         </div>
       </Container>
     </header>
