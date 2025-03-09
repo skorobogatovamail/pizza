@@ -56,22 +56,22 @@ model Product {
 }
 
 model ProductItem {
-    id        Int       @id @default(autoincrement())
-    product   Product?  @relation(fields: [productId], references: [id])
-    productId Int?
+    id        Int        @id @default(autoincrement())
+    product   Product    @relation(fields: [productId], references: [id])
+    productId Int
     price     Int
     size      Int?
     pizzaType Int?
-    cartItem  CartItem?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+    cartItem  CartItem[]
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
 }
 
 model Cart {
     id          Int        @id @default(autoincrement())
     user        User?      @relation(fields: [userId], references: [id])
     userId      Int?       @unique
-    token       String?
+    token       String
     cartItems   CartItem[]
     totalAmount Int        @default(0)
     createdAt   DateTime   @default(now())
@@ -80,10 +80,10 @@ model Cart {
 
 model CartItem {
     id            Int          @id @default(autoincrement())
-    cart          Cart?        @relation(fields: [cartId], references: [id])
-    cartId        Int?         @unique
+    cart          Cart         @relation(fields: [cartId], references: [id])
+    cartId        Int
     productItem   ProductItem  @relation(fields: [productItemId], references: [id])
-    productItemId Int          @unique
+    productItemId Int
     quantity      Int          @default(1)
     ingredients   Ingredient[]
     createdAt     DateTime     @default(now())

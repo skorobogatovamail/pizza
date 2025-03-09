@@ -201,10 +201,12 @@ async function up() {
     data: [
       {
         userId: 1,
+        token: '1',
         totalAmount: 0,
       },
       {
         userId: 2,
+        token: '2',
         totalAmount: 0,
       },
     ],
@@ -213,6 +215,28 @@ async function up() {
   await prisma.cartItem.create({
     data: {
       productItemId: 1,
+      cartId: 1,
+      quantity: 1,
+      ingredients: {
+        connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      },
+    },
+  });
+
+  await prisma.cartItem.create({
+    data: {
+      productItemId: 6,
+      cartId: 1,
+      quantity: 1,
+      ingredients: {
+        connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      },
+    },
+  });
+
+  await prisma.cartItem.create({
+    data: {
+      productItemId: 7,
       cartId: 1,
       quantity: 1,
       ingredients: {
