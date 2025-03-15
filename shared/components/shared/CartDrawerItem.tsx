@@ -6,34 +6,39 @@ import { CountButton } from "./count-button";
 import { CartItemDetailsPrice } from "./cart-item-details/cart-item-details-price";
 
 interface Props {
-    className?: string;
-    imageUrl: string;
-    name: string;
-    ingredients: Ingredient[];
-    quantity: number;
-    price: number;
-
+  className?: string;
+  imageUrl: string;
+  name: string;
+  ingredients: Ingredient[];
+  quantity: number;
+  price: number;
 }
 
-export const CartDrawerItem: React.FC<Props> = ({ className, imageUrl, name, ingredients, quantity, price }) => {
-    return (
-        <div className={cn('flex p-5 bg-white gap-6')}>
-            <CartItemDetailsImage src={imageUrl} />
+export const CartDrawerItem: React.FC<Props> = ({
+  className,
+  imageUrl,
+  name,
+  ingredients,
+  quantity,
+  price,
+}) => {
+  return (
+    <div className={cn("flex p-5 bg-white gap-6", className)}>
+      <CartItemDetailsImage src={imageUrl} />
 
-            <div className="flex-1 flex-col">
-                <CartItemInfo name={name} ingredients={ingredients} />
+      <div className="flex-1 flex-col">
+        <CartItemInfo name={name} ingredients={ingredients} />
 
-                <hr className="my-3" />
+        <hr className="my-3" />
 
-                <div className="flex items-center gap-3 justify-between">
-                    <CountButton onClick={() => { }} value={quantity} />
+        <div className="flex items-center gap-3 justify-between">
+          <CountButton onClick={() => {}} value={quantity} />
 
-                    <div className="flex items-center gap-3">
-                        <CartItemDetailsPrice value={price} />
-                    </div>
-                </div>
-
-            </div>
+          <div className="flex items-center gap-3">
+            <CartItemDetailsPrice value={price} />
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
