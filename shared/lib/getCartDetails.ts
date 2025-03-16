@@ -1,3 +1,4 @@
+import { Ingredient } from "@prisma/client";
 import { CartDTO } from "../services/cart";
 
 interface ReturnProps {
@@ -13,7 +14,7 @@ export interface CartStateItem {
   imageUrl: string;
   pizzaSize?: number | null;
   pizzaType?: number | null;
-  ingredients: [{ name: string; price: number }];
+  ingredients: Ingredient[];
 }
 
 export const getCartDetails = (data: CartDTO): ReturnProps => {

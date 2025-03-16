@@ -9,9 +9,9 @@ interface CartState {
   items: CartStateItem[];
 
   fetchCartItems: () => Promise<void>;
-  updateItemQuantity: (id: number, quantity: number) => Promise<void>;
-  addCartItem: (values: any) => Promise<void>;
-  deleteCartItem: (id: number) => Promise<void>;
+  //   updateItemQuantity: (id: number, quantity: number) => Promise<void>;
+  //   addCartItem: (values: any) => Promise<void>;
+  //   deleteCartItem: (id: number) => Promise<void>;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -33,7 +33,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  updateItemQuantity: async (id, quantity) => {},
-  addCartItem: async (values) => {},
-  deleteCartItem: async (id) => {},
+  //   updateItemQuantity: async (id, quantity) => {},
+  //   addCartItem: async (values) => {},
+  //   deleteCartItem: async (id) => {},
 }));

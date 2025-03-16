@@ -19,7 +19,7 @@ export interface CartDTO extends Cart {
   cartItems: CartItemDTO[];
 }
 
-export const fetchCart = async (): Promise<Cart> => {
-  const { data } = await axiosInstance.get<Cart>(ApiRoutes.CART);
+export const fetchCart = async (): Promise<CartDTO> => {
+  const { data } = await axiosInstance.get<CartDTO>(ApiRoutes.CART);
   return data;
 };
