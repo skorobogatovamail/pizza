@@ -50,3 +50,38 @@ export async function PATCH(
     return NextResponse.json({ message: error }, { status: 500 });
   }
 }
+
+
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    const { id } = await params;
+    const token = req.cookies.get('cartToken')?.value;
+
+    if (!token) {
+      return
+    }
+
+    const foundItem = await prisma.cartItem.findFirst({
+      where: {
+        id: Number(id)
+      }
+    })
+
+    if (!foundItem) {
+      return;
+    }
+
+    await prisma.cartItem.delete({
+      where: {
+        id: Number(id)
+      }
+    })
+
+    const updatedCart = await updateCartTotalAmount(token)
+    return NextResponse.json(updatedCart)
+  } catch (error) {
+
+    console.log(error)
+    return NextResponse.json({ message: error }, { status: 500 })
+  }
+}

@@ -30,3 +30,9 @@ export const updateItemQuantity = async (id: number, quantity: number) => {
   });
   return data;
 };
+
+
+export const deleteItem = async (id: number) => {
+  const { data } = await axiosInstance.delete(`${ApiRoutes.CART}/${id}`)
+  return data
+}

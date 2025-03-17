@@ -10,8 +10,9 @@ interface CartState {
 
   fetchCartItems: () => Promise<void>;
   updateItemQuantity: (id: number, quantity: number) => Promise<void>;
+  deleteCartItem: (id: number) => Promise<void>;
   //   addCartItem: (values: any) => Promise<void>;
-  //   deleteCartItem: (id: number) => Promise<void>;
+
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -45,6 +46,19 @@ export const useCartStore = create<CartState>((set, get) => ({
       set({ loading: false });
     }
   },
+
+  deleteCartItem: async (id) => {
+    try {
+      set({ loading: true, error: false })
+      const data = await Api.cart.deleteItem(id);
+      set(getCartDetails(data))
+    } catch (error) {
+      console.log(error)
+      set({ error: true })
+    } finally {
+      set({ loading: false })
+    }
+  },
   //   addCartItem: async (values) => {},
-  //   deleteCartItem: async (id) => {},
+
 }));
