@@ -8,9 +8,7 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    console.log("id", id);
     const body = await req.json();
-    console.log("body", body);
     const token = req.cookies.get("cartToken")?.value;
 
     if (!token) {
@@ -44,7 +42,7 @@ export async function PATCH(
       },
     });
 
-    const updatedUserCart = updateCartTotalAmount(token);
+    const updatedUserCart = await updateCartTotalAmount(token);
 
     return NextResponse.json(updatedUserCart);
   } catch (error) {

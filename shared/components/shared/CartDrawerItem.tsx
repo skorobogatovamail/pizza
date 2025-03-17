@@ -12,6 +12,7 @@ interface Props {
   ingredients: Ingredient[];
   quantity: number;
   price: number;
+  onClickCountButton: (type: 'plus' | 'minus') => void;
 }
 
 export const CartDrawerItem: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const CartDrawerItem: React.FC<Props> = ({
   ingredients,
   quantity,
   price,
+  onClickCountButton,
 }) => {
   return (
     <div className={cn("flex p-5 bg-white gap-6", className)}>
@@ -32,7 +34,7 @@ export const CartDrawerItem: React.FC<Props> = ({
         <hr className="my-3" />
 
         <div className="flex items-center gap-3 justify-between">
-          <CountButton onClick={() => {}} value={quantity} />
+          <CountButton onClick={onClickCountButton} value={quantity} />
 
           <div className="flex items-center gap-3">
             <CartItemDetailsPrice value={price} />

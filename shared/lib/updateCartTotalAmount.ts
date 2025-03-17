@@ -8,6 +8,9 @@ export const updateCartTotalAmount = async (token: string) => {
       },
       include: {
         cartItems: {
+          orderBy: {
+            createdAt: 'desc',
+          },
           include: {
             productItem: {
               include: {
@@ -28,7 +31,7 @@ export const updateCartTotalAmount = async (token: string) => {
       return acc + cur.productItem.price * cur.quantity;
     }, 0);
 
-    return await prisma.cart.update({
+    const updatedCart = await prisma.cart.update({
       where: {
         id: cart.id,
       },
@@ -37,6 +40,9 @@ export const updateCartTotalAmount = async (token: string) => {
       },
       include: {
         cartItems: {
+          orderBy: {
+            createdAt: 'desc',
+          },
           include: {
             productItem: {
               include: {
@@ -48,6 +54,7 @@ export const updateCartTotalAmount = async (token: string) => {
         },
       },
     });
+    return updatedCart;
   } catch (error) {
     console.log(error);
   }
