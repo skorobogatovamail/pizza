@@ -7,6 +7,7 @@ import {
 } from "@prisma/client";
 import { ApiRoutes } from "./constants";
 import { axiosInstance } from "./instance";
+import { CreateCartItems } from "@/app/api/cart/route";
 
 export type CartItemDTO = CartItem & {
   productItem: ProductItem & {
@@ -34,5 +35,10 @@ export const updateItemQuantity = async (id: number, quantity: number) => {
 
 export const deleteItem = async (id: number) => {
   const { data } = await axiosInstance.delete(`${ApiRoutes.CART}/${id}`)
-  return data
+  return data;
+}
+
+export const addItem = async (values: CreateCartItems) => {
+  const { data } = await axiosInstance.post(`${ApiRoutes.CART}`, { ...values })
+  return data;
 }

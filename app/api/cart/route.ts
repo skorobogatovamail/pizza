@@ -9,7 +9,7 @@ export interface CreateCartItems {
     pizzaSize?: number;
     pizzaType?: number;
     ingredients?: number;
-    quantity: number;
+    quantity?: number;
 }
 
 export async function GET(req: NextRequest) {
@@ -73,10 +73,15 @@ export async function POST(req: NextRequest) {
             })
         }
 
+        const updatedCart = prisma.cart.findFirst(
+            {
+                where: {
+                    id: cart.id
+                }
+            }
+        )
 
-
-
-
+        return NextResponse.json(updatedCart)
 
     } catch (error) {
         console.log(error)
