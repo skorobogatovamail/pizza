@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
             })
         }
 
-        const updatedCart = prisma.cart.findFirst(
+        const updatedCart = await prisma.cart.findFirst(
             {
                 where: {
                     id: cart.id
