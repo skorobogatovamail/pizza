@@ -14,7 +14,6 @@ import { ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./CartDrawerItem";
 import { useCartStore } from "@/shared/store/cart";
 import { useEffect } from "react";
-import { ingredients } from "@/prisma/constants";
 
 interface Props {
   className?: string;
@@ -30,11 +29,6 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
   useEffect(() => {
     fetchCartItems();
   }, []);
-
-  // const items = [
-  //   { id: 1, imageUrl: "", price: 1, name: "", ingredients: [], quantity: 1 },
-  // ];
-  // const totalAmount = 0;
 
   return (
     <Sheet>

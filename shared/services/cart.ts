@@ -23,3 +23,10 @@ export const fetchCart = async (): Promise<CartDTO> => {
   const { data } = await axiosInstance.get<CartDTO>(ApiRoutes.CART);
   return data;
 };
+
+export const updateItemQuantity = async (id: number, quantity: number) => {
+  const { data } = await axiosInstance.patch(`${ApiRoutes.CART}/${id}`, {
+    quantity,
+  });
+  return data;
+};
