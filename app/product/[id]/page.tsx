@@ -11,7 +11,6 @@ export default async function productPage({ params }: { params: { id: string } }
     const product = await prisma.product.findFirst({
         where: { id: Number(id) },
         include: {
-            productItems: true,
             ingredients: true
         }
     });

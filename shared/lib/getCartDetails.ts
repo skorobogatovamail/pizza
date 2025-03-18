@@ -21,16 +21,14 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
   const { cartItems } = data;
   const items = cartItems.map((el) => ({
     id: el.id,
-    name: el.productItem.product.name,
+    name: el.product.name,
     quantity: el.quantity,
-    price: el.productItem.price * el.quantity,
-    imageUrl: el.productItem.product.imageUrl,
-    pizzaSize: el.productItem?.size,
-    pizzaType: el.productItem?.pizzaType,
+    price: el.product.price * el.quantity,
+    imageUrl: el.product.imageUrl,
     ingredients: el.ingredients,
   }));
   const totalAmount = cartItems.reduce((acc, cur) => {
-    return acc + cur.productItem.price;
+    return acc + cur.product.price;
   }, 0);
 
   return { items, totalAmount };

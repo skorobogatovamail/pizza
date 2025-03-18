@@ -5,25 +5,27 @@ import React from "react";
 import { Title } from "./Title";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
-import { Ingredient, Product, ProductItem } from "@prisma/client";
+import { Ingredient, Product } from "@prisma/client";
 import { useCartStore } from "@/shared/store/cart";
 
 interface Props extends Product {
     className?: string;
-    productItems?: ProductItem[];
+    products?: Product[];
     ingredients?: Ingredient[];
 }
 
 export const ProductCard: React.FC<Props> = ({ className, id, name, imageUrl, ...props }) => {
-    const { productItems, ingredients } = props;
-    const price = productItems?.map(el => el.price)[0];
+    const { products, ingredients } = props;
+    const price = products?.map(el => el.price)[0];
     const ingredientsNames = ingredients?.map(el => el.name).join(', ');
 
 
     const addCartItem = useCartStore((state) => state.addCartItem);
+    const fetchCartItems = useCartStore((state) => state.fetchCartItems);
 
     const handleAddItem = (id: number) => {
-        addCartItem({ productItemId: id })
+        addCartItem(id)
+        // fetchCartItems();
     }
 
     return (
@@ -36,13 +38,12 @@ export const ProductCard: React.FC<Props> = ({ className, id, name, imageUrl, ..
                 <p className="text-sm text-gray-400">{ingredientsNames}</p>
                 <div className="flex justify-between items-center mt-4">
                     {price && <span className="text-[20px]"> от <b>{price} ₽</b></span>}
-                    <Button variant="secondary" onClick={() => handleAddItem(id)}>
-                        <Plus size={20} className="mr-1" />
-                        Добавить
-                    </Button>
                 </div>
-
             </Link>
+            <Button variant="secondary" onClick={() => handleAddItem(id)}>
+                <Plus size={20} className="mr-1" />
+                Добавить
+            </Button>
         </div>
     )
 }

@@ -142,16 +142,19 @@ export const products = [
     name: "Кофе Латте",
     imageUrl: "/assets/image.svg",
     categoryId: 5,
+    price: 200
   },
   {
     name: "Фреш",
     imageUrl: "/assets/image.svg",
     categoryId: 6,
+    price: 200
   },
   {
     name: "Ролл",
     imageUrl: "/assets/image.svg",
     categoryId: 2,
+    price: 300
   },
 ];
 

@@ -10,7 +10,6 @@ export default async function Home() {
     include: {
       products: {
         include: {
-          productItems: true,
           ingredients: true
         }
       }

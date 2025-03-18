@@ -3,16 +3,14 @@ import {
   CartItem,
   Ingredient,
   Product,
-  ProductItem,
 } from "@prisma/client";
 import { ApiRoutes } from "./constants";
 import { axiosInstance } from "./instance";
 import { CreateCartItems } from "@/app/api/cart/route";
+import { products } from "@/prisma/constants";
 
 export type CartItemDTO = CartItem & {
-  productItem: ProductItem & {
-    product: Product;
-  };
+  product: Product;
   ingredients: Ingredient[];
 };
 
@@ -38,7 +36,7 @@ export const deleteItem = async (id: number) => {
   return data;
 }
 
-export const addItem = async (values: CreateCartItems) => {
-  const { data } = await axiosInstance.post(`${ApiRoutes.CART}`, { ...values })
+export const addItem = async (id: number) => {
+  const { data } = await axiosInstance.post(`${ApiRoutes.CART}`, { productId: id })
   return data;
 }

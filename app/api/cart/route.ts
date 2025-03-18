@@ -5,11 +5,7 @@ import { findOrCreateCart } from "@/shared/lib/findOrCreateCart";
 import { ingredients } from "@/prisma/constants";
 
 export interface CreateCartItems {
-    productItemId: number;
-    pizzaSize?: number;
-    pizzaType?: number;
-    ingredients?: number;
-    quantity?: number;
+    productId: number;
 }
 
 export async function GET(req: NextRequest) {
@@ -28,11 +24,7 @@ export async function GET(req: NextRequest) {
                         createdAt: 'desc',
                     },
                     include: {
-                        productItem: {
-                            include: {
-                                product: true
-                            }
-                        }
+                        product: true
                     }
                 }
             }
@@ -60,7 +52,7 @@ export async function POST(req: NextRequest) {
         let cartItem = await prisma.cartItem.findFirst({
             where: {
                 cartId: cart.id,
-                productItemId: Number(data.productItemId),
+                productId: Number(data.productId),
             }
         })
 
@@ -68,7 +60,7 @@ export async function POST(req: NextRequest) {
             cartItem = await prisma.cartItem.create({
                 data: {
                     cartId: cart.id,
-                    productItemId: data.productItemId
+                    productId: data.productId
                 }
             })
         }
@@ -77,7 +69,18 @@ export async function POST(req: NextRequest) {
             {
                 where: {
                     id: cart.id
+                },
+                include: {
+                    cartItems: {
+                        orderBy: {
+                            createdAt: 'desc',
+                        },
+                        include: {
+                            product: true
+                        }
+                    }
                 }
+
             }
         )
 

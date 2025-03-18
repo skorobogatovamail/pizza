@@ -12,11 +12,7 @@ export const updateCartTotalAmount = async (token: string) => {
             createdAt: 'desc',
           },
           include: {
-            productItem: {
-              include: {
-                product: true,
-              },
-            },
+            product: true,
             ingredients: true,
           },
         },
@@ -28,7 +24,7 @@ export const updateCartTotalAmount = async (token: string) => {
     }
 
     const totalAmount = cart.cartItems.reduce((acc, cur) => {
-      return acc + cur.productItem.price * cur.quantity;
+      return acc + cur.product.price * cur.quantity;
     }, 0);
 
     const updatedCart = await prisma.cart.update({
@@ -44,15 +40,11 @@ export const updateCartTotalAmount = async (token: string) => {
             createdAt: 'desc',
           },
           include: {
-            productItem: {
-              include: {
-                product: true,
-              },
-            },
+            product: true,
             ingredients: true,
           },
         },
-      },
+      }
     });
     return updatedCart;
   } catch (error) {

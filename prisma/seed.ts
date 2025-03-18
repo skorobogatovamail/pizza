@@ -4,7 +4,7 @@ import {
   categories,
   ingredients,
   pizzas,
-  productItems,
+  // productItems,
   products,
 } from "./constants";
 
@@ -48,6 +48,7 @@ async function up() {
       ingredients: {
         connect: ingredients.slice(0, 5),
       },
+      price: 500
     },
   });
 
@@ -59,6 +60,7 @@ async function up() {
       ingredients: {
         connect: ingredients.slice(5, 7),
       },
+      price: 500
     },
   });
 
@@ -70,87 +72,22 @@ async function up() {
       ingredients: {
         connect: ingredients.slice(1, 4),
       },
-      productItems: {
-        create: [
-          {
-            price: 300,
-            size: 20,
-            pizzaType: 1,
-          },
-          {
-            price: 400,
-            size: 30,
-            pizzaType: 1,
-          },
-          {
-            price: 500,
-            size: 40,
-            pizzaType: 1,
-          },
-          {
-            price: 300,
-            size: 20,
-            pizzaType: 2,
-          },
-          {
-            price: 400,
-            size: 30,
-            pizzaType: 2,
-          },
-          {
-            price: 500,
-            size: 40,
-            pizzaType: 2,
-          },
-        ]
-      }
+      price: 300,
     }
-  }),
+  });
 
-    await prisma.product.create({
-      data: {
-        name: "Гавайская",
-        imageUrl: "/assets/image.svg",
-        categoryId: 1,
-        ingredients: {
-          connect: ingredients.slice(5, 10),
-        },
-        productItems: {
-          create: [
-            {
-              price: 300,
-              size: 20,
-              pizzaType: 1,
-            },
-            {
-              price: 400,
-              size: 30,
-              pizzaType: 1,
-            },
-            {
-              price: 500,
-              size: 40,
-              pizzaType: 1,
-            },
-            {
-              price: 300,
-              size: 20,
-              pizzaType: 2,
-            },
-            {
-              price: 400,
-              size: 30,
-              pizzaType: 2,
-            },
-            {
-              price: 500,
-              size: 40,
-              pizzaType: 2,
-            },
-          ]
-        }
+  await prisma.product.create({
+    data: {
+      name: "Гавайская",
+      imageUrl: "/assets/image.svg",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(5, 10),
       },
-    });
+      price: 300,
+
+    },
+  });
 
   await prisma.product.create({
     data: {
@@ -160,40 +97,7 @@ async function up() {
       ingredients: {
         connect: ingredients.slice(10, 20),
       },
-      productItems: {
-        create: [
-          {
-            price: 300,
-            size: 20,
-            pizzaType: 1,
-          },
-          {
-            price: 400,
-            size: 30,
-            pizzaType: 1,
-          },
-          {
-            price: 500,
-            size: 40,
-            pizzaType: 1,
-          },
-          {
-            price: 300,
-            size: 20,
-            pizzaType: 2,
-          },
-          {
-            price: 400,
-            size: 30,
-            pizzaType: 2,
-          },
-          {
-            price: 500,
-            size: 40,
-            pizzaType: 2,
-          },
-        ]
-      }
+      price: 300,
     },
   });
 
@@ -214,7 +118,7 @@ async function up() {
 
   await prisma.cartItem.create({
     data: {
-      productItemId: 1,
+      productId: 1,
       cartId: 1,
       quantity: 1,
       ingredients: {
@@ -225,7 +129,7 @@ async function up() {
 
   await prisma.cartItem.create({
     data: {
-      productItemId: 6,
+      productId: 6,
       cartId: 1,
       quantity: 1,
       ingredients: {
@@ -236,7 +140,7 @@ async function up() {
 
   await prisma.cartItem.create({
     data: {
-      productItemId: 7,
+      productId: 7,
       cartId: 1,
       quantity: 1,
       ingredients: {
@@ -252,7 +156,7 @@ async function down() {
   await prisma.$executeRaw`TRUNCATE TABLE "Category" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "Ingredient" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "Product" RESTART IDENTITY CASCADE`;
-  await prisma.$executeRaw`TRUNCATE TABLE "ProductItem" RESTART IDENTITY CASCADE`;
+  // await prisma.$executeRaw`TRUNCATE TABLE "ProductItem" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "Cart" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "CartItem" RESTART IDENTITY CASCADE`;
 }

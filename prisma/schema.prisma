@@ -44,28 +44,30 @@ model Ingredient {
 }
 
 model Product {
-    id           Int           @id @default(autoincrement())
-    name         String
-    imageUrl     String
-    category     Category?     @relation(fields: [categoryId], references: [id])
-    categoryId   Int?
-    ingredients  Ingredient[]
-    productItems ProductItem[]
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
+    id          Int          @id @default(autoincrement())
+    name        String
+    imageUrl    String
+    category    Category?    @relation(fields: [categoryId], references: [id])
+    categoryId  Int?
+    ingredients Ingredient[]
+    price       Int
+    cartItem    CartItem[]
+    // productItems ProductItem[]
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
 }
 
-model ProductItem {
-    id        Int        @id @default(autoincrement())
-    product   Product    @relation(fields: [productId], references: [id])
-    productId Int
-    price     Int
-    size      Int?
-    pizzaType Int?
-    cartItem  CartItem[]
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
-}
+// model ProductItem {
+//     id        Int        @id @default(autoincrement())
+//     product   Product    @relation(fields: [productId], references: [id])
+//     productId Int
+//     price     Int
+//     size      Int?
+//     pizzaType Int?
+//     cartItem  CartItem[]
+//     createdAt DateTime   @default(now())
+//     updatedAt DateTime   @updatedAt
+// }
 
 model Cart {
     id          Int        @id @default(autoincrement())
@@ -79,15 +81,17 @@ model Cart {
 }
 
 model CartItem {
-    id            Int          @id @default(autoincrement())
-    cart          Cart         @relation(fields: [cartId], references: [id])
-    cartId        Int
-    productItem   ProductItem  @relation(fields: [productItemId], references: [id])
-    productItemId Int
-    quantity      Int          @default(1)
-    ingredients   Ingredient[]
-    createdAt     DateTime     @default(now())
-    updatedAt     DateTime     @updatedAt
+    id          Int          @id @default(autoincrement())
+    cart        Cart         @relation(fields: [cartId], references: [id])
+    cartId      Int
+    // productItem   ProductItem  @relation(fields: [productItemId], references: [id])
+    // productItemId Int
+    product     Product      @relation(fields: [productId], references: [id])
+    productId   Int
+    quantity    Int          @default(1)
+    ingredients Ingredient[]
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
 }
 
 model Order {
