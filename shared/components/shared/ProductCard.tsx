@@ -21,11 +21,9 @@ export const ProductCard: React.FC<Props> = ({ className, id, name, imageUrl, ..
 
 
     const addCartItem = useCartStore((state) => state.addCartItem);
-    const fetchCartItems = useCartStore((state) => state.fetchCartItems);
 
     const handleAddItem = (id: number) => {
         addCartItem(id)
-        // fetchCartItems();
     }
 
     return (
